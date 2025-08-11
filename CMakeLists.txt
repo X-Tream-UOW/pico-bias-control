@@ -28,19 +28,17 @@ set(PICO_BOARD pico2 CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(X-Tream-HV C CXX ASM)
+project(pico-bias-control C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 file(GLOB SOURCES "src/*.c")
-add_executable(X-Tream-HV ${SOURCES})
+add_executable(pico-bias-control ${SOURCES})
 
-pico_generate_pio_header(X-Tream-HV ${CMAKE_CURRENT_LIST_DIR}/pio/uart.pio)
+target_include_directories(pico-bias-control PRIVATE include)
 
-target_include_directories(X-Tream-HV PRIVATE include)
+target_link_libraries(pico-bias-control pico_stdlib)
 
-target_link_libraries(X-Tream-HV pico_stdlib hardware_uart hardware_pio)
-
-pico_add_extra_outputs(X-Tream-HV)
+pico_add_extra_outputs(pico-bias-control)
 
