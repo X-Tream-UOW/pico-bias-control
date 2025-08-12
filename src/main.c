@@ -1,6 +1,8 @@
 // #define PIN_LED_0 25
 // #define PIN_LED_1 27
 // #define PIN_LED_2 28
+// #define TX_PIN 0
+// #define RX_PIN 0
 
 #include "pico/stdlib.h"
 #include "dac.h"
