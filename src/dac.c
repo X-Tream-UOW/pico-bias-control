@@ -102,13 +102,13 @@ uint16_t dac_voltage_to_code(double volts) {
     return (uint16_t)code;
 }
 
-// Command 0: write input register only
 void dac_write_input_code(uint16_t code) {
     uint16_t mask = mask_for_res();
     uint16_t c = code & mask;
     xfer(build_frame(CMD_WRITE_INPUT, c));
 }
 
+// Command 0: write input register only
 void dac_write_input_voltage(double volts) {
     dac_write_input_code(dac_voltage_to_code(volts));
 }

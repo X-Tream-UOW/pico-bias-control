@@ -19,8 +19,12 @@ void dac_select_reference(dac_ref_mode_t ref_mode);
 
 // ---- High-level API ----
 
-// Command 0: write input register only (no output change)
 void dac_write_input_code(uint16_t code);
+
+// Convert voltage to code with rounding/saturation using initialized resolution/Vref.
+uint16_t dac_voltage_to_code(double volts);
+
+// Command 0: write input register only (no output change)
 void dac_write_input_voltage(double volts);
 
 // Command 1: update output from input register (latch). Also powers up if powered down.
@@ -28,7 +32,4 @@ void dac_update_output(void);
 
 // Command 4: power down the DAC output.
 void dac_power_down(void);
-
-// Convert voltage to code with rounding/saturation using initialized resolution/Vref.
-uint16_t dac_voltage_to_code(double volts);
 
