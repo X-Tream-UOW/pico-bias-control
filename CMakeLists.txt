@@ -36,6 +36,8 @@ pico_sdk_init()
 file(GLOB SOURCES "src/*.c")
 add_executable(pico-bias-control ${SOURCES})
 
+pico_enable_stdio_usb(pico-bias-control 1)
+
 target_include_directories(pico-bias-control PRIVATE include)
 
 target_link_libraries(pico-bias-control pico_stdlib)

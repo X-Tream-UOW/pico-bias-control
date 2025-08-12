@@ -37,7 +37,7 @@ void hv_set_enabled(bool enable) {
 }
 
 void hv_set_polarity(hv_polarity_t polarity) {
-    gpio_put(PIN_SEL, (polarity == HV_POSITIVE) ? 1 : 0);
+    gpio_put(PIN_SEL, polarity);
     t_setup();
     pulse_clk(PIN_SEL_CLK);
 }

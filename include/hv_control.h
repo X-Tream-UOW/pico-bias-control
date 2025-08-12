@@ -8,8 +8,8 @@
 #define PIN_SEL_CLK  26
 
 typedef enum {
-    HV_NEGATIVE = 0,
-    HV_POSITIVE = 1,
+    HV_POSITIVE = 0,  // SEL low
+    HV_NEGATIVE = 1   // SEL high
 } hv_polarity_t;
 
 // Configure GPIO directions and idle states (CLK low).
