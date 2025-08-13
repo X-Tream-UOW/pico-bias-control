@@ -1,6 +1,7 @@
 #include "frame_parser.h"
 #include "bias_control.h"
 #include <stdio.h>
+#include "tx.h"
 
 static uint8_t s_pol = 0;
 
@@ -28,14 +29,14 @@ void process_frame(uint8_t cmd, int16_t data) {
 
     case CMD_GET_STATUS: {
         uint8_t flags = (bias_get_status() ? 1u : 0u) | (uint8_t)(s_pol << 1);
-        // tx_frame_bits(CMD_GET_STATUS, (int16_t)flags);
+        tx_frame_bits(CMD_GET_STATUS, (int16_t)flags);
     } break;
 
     case CMD_GET_BIAS: {
         double v_adc = bias_get_voltage();
         double v_hv  = v_adc * 40.0;
         int16_t hv_dV = (int16_t)(v_hv * 10.0);
-        // tx_frame_bits(CMD_GET_BIAS, hv_dV);
+        tx_frame_bits(CMD_GET_BIAS, hv_dV);
     } break;
 
     default:

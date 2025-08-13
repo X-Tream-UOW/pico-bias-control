@@ -39,12 +39,14 @@ uint32_t read_frame(uint32_t bit_us) {
     return data;
 }
 
-void read_rx() {
+
+void rx_init() {
     gpio_init(PIN_RX);
     gpio_set_dir(PIN_RX, false);
-    gpio_pull_up(PIN_RX);       
+    gpio_pull_up(PIN_RX);
+}   
 
-    uint32_t bit_us = 1000;
+void read_rx(uint bit_us) {
 
     while (true) {
         uint32_t frame = read_frame(bit_us);
