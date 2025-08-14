@@ -11,7 +11,7 @@ void tx_init() {
 }
 
 void tx_set_bit_us(uint bit_us) {
-    uint tx_bit_us = bit_us;
+    tx_bit_us = bit_us;
 }
 
 void tx_frame_bits(uint8_t cmd, int16_t data16) {

@@ -41,6 +41,7 @@
         "stdlib.h": "c",
         "pio.h": "c",
         "frame_linker.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "hv_control.h": "c"
     }
 }

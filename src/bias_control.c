@@ -3,6 +3,7 @@
 #include "adc.h"
 #include "hv_control.h"
 #include "pico/stdlib.h"
+#include "led_control.h"
 
 
 static bool bias_enabled = false;
@@ -24,14 +25,16 @@ void bias_set_polarity(hv_polarity_t polarity) {
     hv_set_polarity(polarity);
 }
 
-void bias_on(void) { // TODO : bind this to the LEDs
+void bias_on(void) {
     hv_set_enabled(true);
     bias_enabled = true;
+    led_hv_on();
 }
 
 void bias_off(void) {
     hv_set_enabled(false);
     bias_enabled = false;
+    led_hv_off();
 }
 
 double bias_get_voltage(void) {

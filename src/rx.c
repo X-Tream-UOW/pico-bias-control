@@ -1,5 +1,6 @@
 #include "pico/stdlib.h"
 #include "frame_parser.h"
+#include "led_control.h"
 #include <stdint.h>
 #include <stdio.h>
 
@@ -18,6 +19,8 @@ uint32_t read_frame(uint32_t bit_us) {
     while (gpio_get(PIN_RX))
         tight_loop_contents();
 
+    led_rx_on();
+
     // Wait half bit period to sample in the middle
     sleep_us(bit_us / 2);
 
@@ -35,6 +38,8 @@ uint32_t read_frame(uint32_t bit_us) {
     }
 
     sleep_us(bit_us);
+
+    led_rx_off();
 
     return data;
 }
