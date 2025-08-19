@@ -1,3 +1,5 @@
+/* This file contains wrapper functions that are then called in process_frame.*/
+
 #include "bias_control.h"
 #include "dac.h"
 #include "adc.h"

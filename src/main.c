@@ -8,7 +8,7 @@
 #include <stdlib.h>  
 #include <stdio.h>
 
-#define BIT_US 1000
+#define BIT_US 1000  // 1Khz communication line
 
 int main(void) {
     leds_init();

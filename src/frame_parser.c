@@ -5,6 +5,7 @@
 
 static uint8_t s_pol = 0;
 
+// This functions takes the command and the data from the RX module and execute the associated functions
 void process_frame(uint8_t cmd, int16_t data) {
 
     printf("Command: %u, Data: %d\n", cmd, data);
@@ -34,8 +35,8 @@ void process_frame(uint8_t cmd, int16_t data) {
 
     case CMD_GET_BIAS: {
         double v_adc = bias_get_voltage();
-        double v_hv  = v_adc * 40.0;
-        int16_t hv_dV = (int16_t)(v_hv * 10.0);
+        double v_hv  = v_adc * 40.0;  // The gain can be tweaked here
+        int16_t hv_dV = (int16_t)(v_hv * 10.0); // Converting to decivolts to get an int16
         tx_frame_bits(CMD_GET_BIAS, hv_dV);
     } break;
 

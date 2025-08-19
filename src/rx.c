@@ -1,3 +1,5 @@
+/* This files implements the listener which builds the frame from the RX lines.*/
+
 #include "pico/stdlib.h"
 #include "frame_parser.h"
 #include "led_control.h"
@@ -67,6 +69,6 @@ void read_rx(uint bit_us) {
         // for (int i = 0; i <= 18; i+"+) printf("%d", (frame >> i) & 1);
         // printf("cmd=%u data=%d\n", cmd, data);
 
-        process_frame(cmd, data);
+        process_frame(cmd, data);  // Send the frame for processing and executing the command
     }
 }

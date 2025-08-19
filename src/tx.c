@@ -1,3 +1,5 @@
+/* This file implements the data transmitter to send frames to the pi*/
+
 #include "tx.h"
 
 #define PIN_TX 0
@@ -10,10 +12,13 @@ void tx_init() {
     gpio_put(PIN_TX, 1);          // idle high
 }
 
+// Configures the frequency
 void tx_set_bit_us(uint bit_us) {
     tx_bit_us = bit_us;
 }
 
+
+// Sends the given frame
 void tx_frame_bits(uint8_t cmd, int16_t data16) {
     // Pack 3-bit cmd (LSBs) and 16-bit data
     uint32_t word19 = ((uint32_t)(uint16_t)data16 << 3) | (uint32_t)(cmd & 0x7);

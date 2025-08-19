@@ -1,3 +1,5 @@
+/* This file provide tools to control the signals which drives the high voltage modules */
+
 #include "hv_control.h"
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
@@ -12,7 +14,7 @@ static inline void pulse_clk(uint clk_pin) {
     gpio_put(clk_pin, 0);
 }
 
-void hv_init(void) {
+void hv_init(void) {  // All lines low
     gpio_init(PIN_EN);
     gpio_set_dir(PIN_EN, true);
     gpio_put(PIN_EN, 0);
@@ -30,13 +32,13 @@ void hv_init(void) {
     gpio_put(PIN_SEL_CLK, 0);
 }
 
-void hv_set_enabled(bool enable) {
+void hv_set_enabled(bool enable) {  // Turn on / off
     gpio_put(PIN_EN, enable ? 1 : 0);
     t_setup();
     pulse_clk(PIN_EN_CLK);
 }
 
-void hv_set_polarity(hv_polarity_t polarity) {
+void hv_set_polarity(hv_polarity_t polarity) {  // Set positive / negative bias
     gpio_put(PIN_SEL, polarity);
     t_setup();
     pulse_clk(PIN_SEL_CLK);

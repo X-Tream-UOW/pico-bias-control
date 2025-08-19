@@ -1,11 +1,16 @@
+/* This file implement the control system for the LTC2630 DAC. 
+It allows to latch a specific voltage on the high-voltage rail. */
+
 #include "dac.h"
 #include "pico/stdlib.h"
 #include <math.h>
 
-static double   s_vref_volts = 2.500;
+static double   s_vref_volts = 2.500;  // This can be configured up to 5V
 static int      s_resolution = 12;
 static uint16_t s_fullscale  = 0x0FFF;
 
+
+// These commands are described in the datasheet
 enum {
     CMD_WRITE_INPUT      = 0x0,  // write input reg
     CMD_UPDATE_DAC       = 0x1,  // update (and power up)
@@ -57,6 +62,8 @@ static uint32_t build_frame(uint8_t cmd, uint16_t codeN) {
     return w;
 }
 
+
+// In case the resolution is changed
 static inline uint16_t mask_for_res(void) {
     switch (s_resolution) {
         case 12: return 0x0FFF;
@@ -66,6 +73,8 @@ static inline uint16_t mask_for_res(void) {
     }
 }
 
+
+// Sends the frame to the DAC
 static inline void xfer(uint32_t frame24) {
     gpio_put(PIN_DAC_CS, 0);
     t_delay();
@@ -75,7 +84,7 @@ static inline void xfer(uint32_t frame24) {
     t_delay();
 }
 
-// Public API
+// high-level API
 void dac_init(dac_ref_mode_t ref_mode, double vref_volts, int resolution_bits) {
     gpio_if_init();
    
@@ -88,6 +97,8 @@ void dac_init(dac_ref_mode_t ref_mode, double vref_volts, int resolution_bits) {
     dac_select_reference(ref_mode);
 }
 
+
+// This can allow to go from 2.5V to 5V reference if needed
 void dac_select_reference(dac_ref_mode_t ref_mode) {
     uint8_t cmd = (ref_mode == DAC_REF_VCC) ? CMD_SEL_SUPPLY_REF : CMD_SEL_INT_REF;
     xfer(build_frame(cmd, 0));

@@ -1,3 +1,5 @@
+/* This file implements the control of the ADC for voltage readout. */
+
 #include "adc.h"
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
